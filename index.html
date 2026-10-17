@@ -67,6 +67,11 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 #q{flex:1 1 220px;min-width:0;font:inherit;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
 .btn{font:inherit;font-size:14px;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:8px;padding:7px 12px;cursor:pointer}
 .count{font-size:14px;color:var(--muted)}
+.lang{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--muted)}
+#lang{font:inherit;font-size:14px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.tr-link{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:14px;font-weight:600;color:var(--accent);text-decoration:none;border:1px solid var(--accent);border-radius:8px;padding:6px 12px}
+.tr-link:hover{background:var(--accent-soft)}
+.tr-link:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,520px),1fr));gap:16px;margin-top:16px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:12px;display:flex;flex-direction:column;min-width:0}
@@ -150,6 +155,15 @@ footer{color:var(--muted);font-size:14px;max-width:72ch}
     <div class="chips" id="chips"></div>
     <label for="q" class="mono" style="position:absolute;left:-9999px">Search tasks</label>
     <input id="q" type="search" placeholder="Search teachers, tasks, outputs…">
+    <label class="lang" for="lang">Translate into
+      <select id="lang">
+        <option value="">Each teacher's own language</option>
+        <option value="tr">Türkçe</option>
+        <option value="pt">Português</option>
+        <option value="ro">Română</option>
+        <option value="pl">Polski</option>
+      </select>
+    </label>
     <span class="count" id="count"></span>
     <button class="btn" id="reset" type="button">Clear my ticks</button>
   </div>
@@ -172,7 +186,7 @@ footer{color:var(--muted);font-size:14px;max-width:72ch}
   </table></div>
 </section>
 
-<footer>Task owners follow the preferences partners gave in the form. The implementation details under each task are suggested working methods and have not yet been approved by partners. Ticks are saved only in your own browser.</footer>
+<footer>Task owners follow the preferences partners gave in the form. The implementation details under each task are suggested working methods and have not yet been approved by partners. Ticks are saved only in your own browser. Translations open in Google Translate and are machine-generated; the English text is the reference version.</footer>
 </div>
 
 <script>
@@ -286,6 +300,19 @@ outs:["Mathematical Error Investigation","Can We Trust the Numbers? Activity","D
 outs:["Misleading Graphs Activity","Estimation Check Worksheets","Probability & Correlation Cases","Student Graphs for the Digital Book","Evaluation Charts","Graph Error Atlas Contributions"]}
 ];
 
+const L={TR:"tr",PT:"pt",RO:"ro",PL:"pl"};
+const LBL={tr:"Görevlerimi Türkçeye çevir",pt:"Traduzir as tarefas para português",ro:"Traduceți sarcinile în română",pl:"Przetłumacz zadania na polski"};
+let lang="";try{lang=localStorage.getItem("aid-lang")||""}catch(e){}
+function cardText(t){
+  return [`${t.name} (${C[t.c].n})`,`Main responsibility: ${t.role}`,"",
+    ...t.tasks.flatMap(([a,b],i)=>[`${i+1}. ${a}`,...b.map(x=>`   - ${x}`),""]),
+    `Expected outputs: ${t.outs.join(", ")}`].join("\n");
+}
+function trLink(t){
+  const tl=lang||L[t.c];
+  const url=`https://translate.google.com/?sl=en&tl=${tl}&op=translate&text=${encodeURIComponent(cardText(t))}`;
+  return `<div><a class="tr-link" href="${url}" target="_blank" rel="noopener">${LBL[tl]} ↗</a></div>`;
+}
 const KEY="aid-ticks-v1";
 let ticks={};try{ticks=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){ticks={}}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(ticks))}catch(e){}};
@@ -325,13 +352,15 @@ function render(){
       </div>
       <ul class="tasks">${t.tasks.map(([title,how],i)=>{const id=`${t.id}-${i}`;const show=open&&(title+how.join(" ")).toLowerCase().includes(query.toLowerCase());
         return `<li class="task${ticks[id]?" done":""}"><details${show?" open":""}><summary><input type="checkbox" id="cb-${id}" data-k="${id}" ${ticks[id]?"checked":""} aria-label="Mark done: ${esc(title)}"><span class="t">${i+1}. ${hl(title)}</span><span class="chev" aria-hidden="true">›</span></summary><div class="how"><ul>${how.map(h=>`<li>${hl(h)}</li>`).join("")}</ul></div></details></li>`}).join("")}</ul>
-      <div class="outs"><span class="mono">Expected outputs</span><div>${t.outs.map(o=>`<span class="out">${hl(o)}</span>`).join("")}</div></div>
+      <div class="outs"><span class="mono">Expected outputs</span><div>${t.outs.map(o=>`<span class="out">${hl(o)}</span>`).join("")}</div>${trLink(t)}</div>
     </article>`}).join("");
 }
 document.getElementById("chips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;country=b.dataset.c;chips();render()});
 document.getElementById("q").addEventListener("input",e=>{query=e.target.value.trim();render()});
 document.getElementById("grid").addEventListener("click",e=>{if(e.target.matches("input[type=checkbox]"))e.stopPropagation()});
 document.getElementById("grid").addEventListener("change",e=>{const k=e.target.dataset.k;if(!k)return;if(e.target.checked)ticks[k]=1;else delete ticks[k];save();render()});
+const sel=document.getElementById("lang");sel.value=lang;
+sel.addEventListener("change",e=>{lang=e.target.value;try{localStorage.setItem("aid-lang",lang)}catch(_){};render()});
 document.getElementById("reset").addEventListener("click",()=>{ticks={};save();render()});
 chips();render();
 </script>
