@@ -58,6 +58,28 @@ section > h2{font-size:24px;font-weight:700;margin-bottom:14px}
 @media (max-width:820px){.timeline{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:460px){.timeline{grid-template-columns:1fr}}
 
+.meets{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:12px}
+.meet{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0;border-top:4px solid var(--mc)}
+.meet.next{box-shadow:0 0 0 2px var(--accent)}
+.meet.past{opacity:.62}
+.meet .top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.meet .n{font-family:var(--f-display);font-size:28px;font-weight:800;color:var(--mc);line-height:1}
+.state{font-size:12px;font-weight:600;padding:2px 8px;border-radius:4px;border:1px solid var(--line);color:var(--muted)}
+.meet.next .state{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.meet .date{font-family:var(--f-display);font-size:19px;font-weight:700}
+.meet .host{font-size:14px;color:var(--muted);margin:0}
+.meet .host b{color:var(--mc);font-weight:600}
+.meet h3{font-size:17px;font-weight:700}
+.meet ul{margin:0;padding-left:18px;font-size:14px}
+.times{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:13px;font-variant-numeric:tabular-nums;border-top:1px dashed var(--line);padding-top:8px}
+.times span:nth-child(odd){color:var(--muted)}
+.coord{font-size:13px;color:var(--muted);margin:0}
+.coord b{color:var(--ink);font-weight:600}
+.cal{margin-top:auto;font-size:13px;font-weight:600;color:var(--accent);text-decoration:none}
+.cal:hover{text-decoration:underline}
+.revise{margin:0 0 14px;padding:12px 14px;border-left:4px solid var(--mark);background:var(--surface);border-radius:0 8px 8px 0;font-size:15px;max-width:80ch}
+.meetfoot{margin-top:12px;font-size:14px;color:var(--muted)}
+.hosting{display:inline-block;margin-top:8px;margin-left:4px;font-size:12px;font-weight:600;padding:2px 8px;border-radius:4px;border:1px solid var(--accent);color:var(--accent)}
 .bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:12px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;border-bottom:1px solid var(--line)}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
@@ -121,7 +143,7 @@ footer{color:var(--muted);font-size:14px;max-width:72ch}
   <p class="sub">Teacher-by-teacher task and responsibility plan. Each task opens to show how it can be carried out: tools, what students do, the product, and the evidence that goes on TwinSpace.</p>
   <div class="meta">
     <span class="tag">October 2026 – January 2027</span>
-    <span class="tag">13 teachers</span>
+    <span class="tag">14 teachers</span>
     <span class="tag">4 countries</span>
     <span class="tag draft">Draft for approval at the first partner meeting</span>
   </div>
@@ -147,6 +169,13 @@ footer{color:var(--muted);font-size:14px;max-width:72ch}
     <div class="phase"><span class="mono">December</span><h3>Co-create</h3><p>International mixed teams build joint products.</p></div>
     <div class="phase"><span class="mono">January</span><h3>Evaluate &amp; publish</h3><p>Post-test, digital book, Error Atlas, final video and report.</p></div>
   </div>
+</section>
+
+<section aria-labelledby="mt">
+  <h2 id="mt">International meetings</h2>
+  <p class="revise"><b>Dates and times can be revised.</b> If a date or time does not suit a partner school (holidays, exams, school events or time-zone differences), tell the coordinator. Changes are agreed together and updated on this page, so always check here for the latest schedule.</p>
+  <div class="meets" id="meets"></div>
+  <p class="meetfoot">5 online meetings · 45–60 minutes · 20:30 Türkiye time (UTC+3). Local times are worked out for each date: Europe changes clocks on 25 October, so Portugal, Romania and Poland start one hour earlier from the second meeting on.</p>
 </section>
 
 <section aria-labelledby="tm">
@@ -297,9 +326,50 @@ outs:["Mathematical Error Investigation","Can We Trust the Numbers? Activity","D
 ["Guide students to build correct graphs from verified data",["Students collect data from official or scientific sources in Google Sheets","Mixed teams produce clear, correctly labelled graphs with source and date","Selected graphs go into the digital book"]],
 ["Visualise pre-test and post-test results",["Work with Dilan and Naim on anonymised results","Prepare clear charts and tables for the evaluation and final report","Show sample size and limitations next to each chart"]],
 ["Add graph errors to the Error Atlas",["Complete atlas pages with the original misleading graph, the error explanation, the corrected graph and the data source","Check each page for mathematical accuracy"]]],
-outs:["Misleading Graphs Activity","Estimation Check Worksheets","Probability & Correlation Cases","Student Graphs for the Digital Book","Evaluation Charts","Graph Error Atlas Contributions"]}
+outs:["Misleading Graphs Activity","Estimation Check Worksheets","Probability & Correlation Cases","Student Graphs for the Digital Book","Evaluation Charts","Graph Error Atlas Contributions"]},
+{id:14,name:"Vasilescu Mihaela",c:"RO",note:"New partner · tasks proposed, to be agreed at the first meeting",role:"How AI works, safe AI tools and technical support for digital work",tasks:[
+["Explain why AI makes mistakes",["Short student-friendly lesson on how chatbots generate answers: training data, next-word prediction, “hallucinations” and missing context","Link each cause to an example students will meet in DETECT activities"]],
+["Prepare the approved AI tools list",["Test the chatbots and image tools planned for activities","Check age limits, account requirements, privacy settings and data use","Share a short list of tools partners agree are safe for ages 14–17, with notes on how to use them"]],
+["Run the “Same question, different answers” activity",["Mixed teams ask the same science question with different prompts or to different AI tools","Students compare the answers, record differences and use DETECT to decide which answer is reliable","Results show why one AI answer is never enough as evidence"]],
+["Technical support for digital workspaces",["Help Manuela and Cristina test Padlet, Google Forms, Book Creator and TwinSpace links","Check access permissions and that pages work on phones","Write a one-page how-to for students who struggle with the tools"]],
+["Guide an international mixed team",["Act as teacher guide for one mixed team","Follow the team's progress and give feedback without producing work for students","Report communication or technical problems to the coordinator"]],
+["Add AI behaviour examples to the Error Atlas",["Select checked examples showing how prompts or tools led to different or wrong answers","Complete atlas pages with the prompt, the AI answer, the error explanation, the corrected answer and sources"]]],
+outs:["How AI Makes Mistakes Lesson","Approved AI Tools List","Same Question, Different Answers Activity","Student Tool How-to","AI Behaviour Atlas Contributions"]}
 ];
 
+const M=[
+{n:1,utc:"2026-10-22T17:30:00Z",c:"TR",host:"Borsa İstanbul Anadolu Lisesi",title:"Meet the AI Detectives! International Kick-off Meeting (teachers & students)",items:["Project introduction","Teachers and students get to know each other","“My Detective Identity” student introductions","Icebreaker: AI or Human?","Introduction to the DETECT method","Next steps and first tasks"],coord:["Selma Alhan","Fidel Ateş","Başak Özgür","Naim Şığva"]},
+{n:2,utc:"2026-11-12T17:30:00Z",c:"TR",host:"15 Temmuz Şehitler Anadolu Lisesi & Esenyurt TOKİ Ali Duran MTAL",title:"Spot the AI Mistake! Student collaboration and team building",items:["Short school presentations","First scientific error investigations","International mixed teams","Interactive: Two Truths and One AI Lie","Preparing for future tasks"],coord:["Mehmet Baş","Aygün Can Cengiz","Dilan Almas"]},
+{n:3,utc:"2026-11-24T17:30:00Z",c:"RO",host:"Colegiul Național de Informatică „Matei Basarab”, Rm. Vâlcea",title:"The AI Safety Escape Room",items:["AI ethics and digital safety","Data privacy and online security","Interactive escape room with four missions","Applying DETECT skills","Creating the Responsible AI Student Charter"],coord:["Simona Cristina Dorobanțu","Nicuta Aura Dogaru","Vasilescu Mihaela","Alina Mihăilescu"]},
+{n:4,utc:"2026-12-08T17:30:00Z",c:"PT",host:"Agrupamento de Escolas Francisco de Holanda",title:"DETECT Mission: Solve the Case",items:["International mixed team research","Analysing AI-related claims","Collecting and evaluating evidence","Interactive: Scientific Mystery Challenge","Contributing to the AI Science Error Atlas and digital book"],coord:["Manuela Paredes","Cristina Tomé"]},
+{n:5,utc:"2027-01-12T17:30:00Z",c:"PL",host:"I Liceum Ogólnokształcące im. Bolesława Krzywoustego w Słupsku",title:"International AI Detectives Showcase",items:["Student research presentations","Sharing international results","Interactive: Detective Gallery & Ask the Detectives","Peer feedback and evaluation","Celebrating our achievements","Project closing and next steps"],coord:["Kamila Oporska-Łaba"]}
+];
+const TZ=[["Türkiye","Europe/Istanbul"],["Portugal","Europe/Lisbon"],["Romania","Europe/Bucharest"],["Poland","Europe/Warsaw"]];
+const fmt=(d,tz,o)=>{try{return new Intl.DateTimeFormat("en-GB",{timeZone:tz,...o}).format(d)}catch(e){return ""}};
+function calURL(m){
+  const s=new Date(m.utc),e=new Date(s.getTime()+60*60000);
+  const z=d=>d.toISOString().replace(/[-:]/g,"").replace(/\.\d{3}/,"");
+  const det=`Host: ${m.host} (${C[m.c].n})\n\n${m.items.map(i=>"• "+i).join("\n")}\n\nCoordinating teachers: ${m.coord.join(", ")}\n\nDate and time may be revised by agreement. Check the AI Detectives task board for the latest schedule.`;
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("AI Detectives · Meeting "+m.n+": "+m.title.split(/[!:]/)[0])}&dates=${z(s)}/${z(e)}&details=${encodeURIComponent(det)}`;
+}
+function renderMeets(){
+  const now=Date.now();const nextIdx=M.findIndex(m=>new Date(m.utc).getTime()+60*60000>now);
+  document.getElementById("meets").innerHTML=M.map((m,i)=>{
+    const d=new Date(m.utc),st=i===nextIdx?"next":(nextIdx===-1||i<nextIdx?"past":"");
+    const lab=st==="next"?"Next meeting":st==="past"?"Held":"Upcoming";
+    return `<article class="meet ${st}" style="--mc:var(${C[m.c].v})">
+      <div class="top"><span class="n">${m.n}</span><span class="state">${lab}</span></div>
+      <div><div class="date">${fmt(d,"Europe/Istanbul",{weekday:"long",day:"numeric",month:"long",year:"numeric"})}</div>
+      <p class="host"><b>${C[m.c].n}</b> · ${esc(m.host)}</p></div>
+      <h3>${esc(m.title)}</h3>
+      <ul>${m.items.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+      <div class="times">${TZ.map(([n,tz])=>`<span>${n}</span><span>${fmt(d,tz,{hour:"2-digit",minute:"2-digit",hour12:false})}</span>`).join("")}</div>
+      <p class="coord">Coordinating: <b>${m.coord.join(", ")}</b></p>
+      <a class="cal" href="${calURL(m)}" target="_blank" rel="noopener">Add to Google Calendar ↗</a>
+      <span class="coord">Date and time may be revised by agreement.</span>
+    </article>`}).join("");
+}
+const hostOf=name=>M.filter(m=>m.coord.includes(name));
 const L={TR:"tr",PT:"pt",RO:"ro",PL:"pl"};
 const LBL={tr:"Görevlerimi Türkçeye çevir",pt:"Traduzir as tarefas para português",ro:"Traduceți sarcinile în română",pl:"Przetłumacz zadania na polski"};
 let lang="";try{lang=localStorage.getItem("aid-lang")||""}catch(e){}
@@ -347,7 +417,7 @@ function render(){
     return `<article class="card">
       <div class="card-h">
         <span class="num">${String(t.id).padStart(2,"0")}</span>
-        <div class="who"><span class="ctry" style="color:var(${col})">${C[t.c].n}</span><h3>${hl(t.name)}</h3><p class="role">${hl(t.role)}</p>${t.note?`<span class="pend">${t.note}</span>`:""}</div>
+        <div class="who"><span class="ctry" style="color:var(${col})">${C[t.c].n}</span><h3>${hl(t.name)}</h3><p class="role">${hl(t.role)}</p>${t.note?`<span class="pend">${t.note}</span>`:""}${hostOf(t.name).map(m=>`<span class="hosting">Coordinates meeting ${m.n} · ${fmt(new Date(m.utc),"Europe/Istanbul",{day:"numeric",month:"short"})}</span>`).join("")}</div>
         ${ring(done,t.tasks.length,col)}
       </div>
       <ul class="tasks">${t.tasks.map(([title,how],i)=>{const id=`${t.id}-${i}`;const show=open&&(title+how.join(" ")).toLowerCase().includes(query.toLowerCase());
@@ -362,7 +432,7 @@ document.getElementById("grid").addEventListener("change",e=>{const k=e.target.d
 const sel=document.getElementById("lang");sel.value=lang;
 sel.addEventListener("change",e=>{lang=e.target.value;try{localStorage.setItem("aid-lang",lang)}catch(_){};render()});
 document.getElementById("reset").addEventListener("click",()=>{ticks={};save();render()});
-chips();render();
+renderMeets();chips();render();
 </script>
 </body>
 </html>
