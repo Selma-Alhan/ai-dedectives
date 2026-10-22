@@ -146,7 +146,7 @@ th{font-size:.85rem;color:var(--muted)}
         <div class="sync" id="sync" role="status">Loading student ideas…</div>
         <button class="btn ghost small" id="refreshBtn" type="button">Check for new ideas</button>
       </div>
-      <details class="meet">
+      <details class="meet" id="meet" hidden>
         <summary>Add an idea during a meeting</summary>
         <p class="note">Ideas added here stay in this browser only.</p>
       <form class="add" id="addForm">
@@ -343,6 +343,7 @@ function render(){renderStrip();renderList();renderDecisions()}
 // ---- Google Form / Sheet sync ----
 let hidden=[];try{hidden=JSON.parse(localStorage.getItem(HIDDEN_KEY)||"[]")}catch(e){}
 $("#formLink").href=FORM_URL;
+if(new URLSearchParams(location.search).get("teacher")==="1")$("#meet").hidden=false;
 
 function parseCSV(t){
   const rows=[];let row=[],f="",q=false;
